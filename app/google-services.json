@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "641047210102",
+    "firebase_url": "https://moviles-6039b.firebaseio.com",
+    "project_id": "moviles-6039b",
+    "storage_bucket": "moviles-6039b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641047210102:android:d0cd69c62ac63060",
+        "android_client_info": {
+          "package_name": "mx.tec.proyectofinal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "641047210102-0ubj4gh5jk509a1q889nfulqca3l7gtj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArBQV5ehzpeZp4cSHehBsl3S_FH9zMGgI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

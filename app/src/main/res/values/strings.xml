@@ -1,0 +1,24 @@
+<resources>
+    <!-- activity_main.xml -->
+    <string name="app_name">ProyectoFinal</string>
+    <string name="appTitle">AppTitle</string>
+    <string name="welcomeText">\"some quote here!\"</string>
+    <string name="buttonLogIn">Log In</string>
+    <string name="buttonSignUp">Sign Up</string>
+    <!-- activity_main.xml -->
+
+    <!-- activity_sign_up.xml -->
+    <string name="signUpText">SIGN UP</string>
+    <string name="emailForm">email:</string>
+    <string name="passwordForm">password: (8 characters)</string>
+    <string name="passwordConfirmation">confirm password:</string>
+    <string name="emailHint">myemail@example.com</string>
+    <string name="passwordHint">********</string>
+    <string name="signUpConfirmationButton">Confirm</string>
+    <!-- activity_sign_up.xml -->
+
+    <!-- activity_log_in.xml -->
+    <string name="logInText">LOG IN</string>
+    <!-- activity_log_in.xml -->
+
+</resources>
