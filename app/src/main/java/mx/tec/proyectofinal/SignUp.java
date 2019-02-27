@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ public class SignUp extends AppCompatActivity {
 
     private EditText emailEditText, passwordEditText, passwordConfEditText;
     private TextView status;
+    private CheckBox enterpriseCheck;
     private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class SignUp extends AppCompatActivity {
         emailEditText = findViewById(R.id.editText_emailSignUp);
         passwordEditText = findViewById(R.id.editText_passwordSignUp);
         passwordConfEditText = findViewById(R.id.editText_passwordConfirmationSignUp);
+        enterpriseCheck = findViewById(R.id.enterpriseCheckBox);
 
         status = findViewById(R.id.textView_Status);
 
@@ -41,40 +44,45 @@ public class SignUp extends AppCompatActivity {
     }
 
     public void onClickConfirm(View v){
-        createAccount(emailEditText.getText().toString(), passwordEditText.getText().toString());
+        createAccount(emailEditText.getText().toString(), passwordEditText.getText().toString(),
+                        enterpriseCheck.isChecked());
     }
 
-    public void createAccount(final String email, final String password){
+    public void createAccount(final String email, final String password, boolean enterprise){
         Log.d("EmailPassword", "createAccount:" + email);
         if (!validateForm()){
             return;
         }
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            status.setText("User created");
-                            status.setTextColor(Color.rgb(50,205,50));
-                            Log.d("EmailPassword", "createUserWithEmail:success");
-                            /* Move to the main app once logged in */
-                            try {
-                                Thread.sleep(2000);
-                            }catch (InterruptedException e){
-                                e.printStackTrace();
+        if (enterprise){
+            
+        }else {
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                status.setText("User created");
+                                status.setTextColor(Color.rgb(50, 205, 50));
+                                Log.d("EmailPassword", "createUserWithEmail:success");
+                                /* Move to the main app once logged in */
+                                try {
+                                    Thread.sleep(2000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                Intent intent = new Intent(SignUp.this, LogIn.class);
+                                intent.putExtra("email", email);
+                                intent.putExtra("password", password);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                status.setText("Failed:" + task.getException());
+                                status.setTextColor(Color.RED);
+                                Log.w("EmailPassword", "createUserWithEmail:failure", task.getException());
                             }
-                            Intent intent = new Intent(SignUp.this, LogIn.class);
-                            intent.putExtra("email", email);
-                            intent.putExtra("password", password);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            status.setText("Failed:" + task.getException());
-                            status.setTextColor(Color.RED);
-                            Log.w("EmailPassword", "createUserWithEmail:failure", task.getException());
                         }
-                    }
-                });
+                    });
+        }
 
     }
 
