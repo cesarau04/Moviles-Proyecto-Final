@@ -54,7 +54,7 @@ public class SignUp extends AppCompatActivity {
             return;
         }
         if (enterprise){
-            
+            //Crear usuario enterprise
         }else {
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
