@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "641047210102-bf4lmjpb65rqo9k5kre7cvrrbjmbfpmk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mx.tec.proyectofinal",
+            "certificate_hash": "362497ddc35b23b4b88a9e1ab80eaa0757d704e6"
+          }
+        },
+        {
+          "client_id": "641047210102-6r1o5e5fcuuaf33u8ae6cv42g7rjbac2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mx.tec.proyectofinal",
+            "certificate_hash": "970080742474152a9b023b5f0aa1a0f90072a7ff"
+          }
+        },
+        {
           "client_id": "641047210102-0ubj4gh5jk509a1q889nfulqca3l7gtj.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +45,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "641047210102-0ubj4gh5jk509a1q889nfulqca3l7gtj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
