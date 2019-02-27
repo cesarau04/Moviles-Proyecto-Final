@@ -63,7 +63,7 @@ public class LogIn extends AppCompatActivity {
                             Toast.makeText(LogIn.this, "Succesfull login", Toast.LENGTH_LONG).show();
                             FirebaseUser user = mAuth.getCurrentUser();
                             //here move to another intent
-                            Intent intent = new Intent(LogIn.this, preDashboard.class);
+                            Intent intent = new Intent(LogIn.this, userDashboard.class);
                             //put some extras like the user? Or save that in preferences
                             intent.putExtra("email", email);
                             startActivity(intent);
