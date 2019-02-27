@@ -22,6 +22,7 @@ public class LogIn extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private EditText email, password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +33,7 @@ public class LogIn extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         Intent intent = getIntent();
+
         // here we can check against mAuth.getCurrentUser() if different from null
         if (intent.getStringExtra("email") != null && intent.getStringExtra("password") != null){
             //we came from sign in activity
@@ -48,7 +50,7 @@ public class LogIn extends AppCompatActivity {
         logIn(email.getText().toString(), password.getText().toString());
     }
 
-    private void logIn(String email, String password) {
+    private void logIn(final String email, String password) {
         if (!validateForm(email, password)){
             return;
         }
@@ -63,6 +65,7 @@ public class LogIn extends AppCompatActivity {
                             //here move to another intent
                             Intent intent = new Intent(LogIn.this, preDashboard.class);
                             //put some extras like the user? Or save that in preferences
+                            intent.putExtra("email", email);
                             startActivity(intent);
                         }else{
                             Toast.makeText(LogIn.this, task.getException().toString(), Toast.LENGTH_LONG).show();
