@@ -19,6 +19,7 @@
 
     <!-- activity_log_in.xml -->
     <string name="logInText">LOG IN</string>
+    <string name="title_activity_enterp_dashboard">enterpDashboard</string>
     <!-- activity_log_in.xml -->
 
 </resources>
