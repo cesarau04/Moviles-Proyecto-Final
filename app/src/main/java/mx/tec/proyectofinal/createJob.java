@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class createJob extends AppCompatActivity {
 
     private EditText jobTitle, jobDescription;
@@ -18,6 +21,8 @@ public class createJob extends AppCompatActivity {
 
         jobTitle=findViewById(R.id.jobTitle);
         jobDescription=findViewById(R.id.jobDescription);
+
+
     }
 
     public void addJob(View v){
@@ -26,6 +31,14 @@ public class createJob extends AppCompatActivity {
         jobTitle.getText().toString();
         jobDescription.getText().toString();
          */
+
+        Intent intentPrevious=getIntent();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userDataReference = database.getReference();
+        userDataReference.child("JobsApp").child("Enterprise").child(intentPrevious.getStringExtra(
+                "email")).child("Jobs").child(jobTitle.getText().toString()).child(jobDescription.getText().toString());
+
 
         Intent intent = new Intent();
         setResult(Activity.RESULT_OK, intent);
