@@ -28,13 +28,13 @@
 
         <TextView
             android:id="@+id/subtitlepage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="#4A4E6A"
             android:layout_marginTop="8dp"
             android:text="Find out the perfect job"
             android:textAlignment="center"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="18sp" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <View
             android:layout_marginTop="20dp"
@@ -47,7 +47,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/ourJobs"
         android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="-60dp"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
         android:layout_height="wrap_content">

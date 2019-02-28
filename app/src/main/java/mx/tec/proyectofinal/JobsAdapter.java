@@ -32,25 +32,6 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.MyViewHolder>{
         myViewHolder.titlejob.setText(myJob.get(i).getTitleJob());
         myViewHolder.descjob.setText(myJob.get(i).getDescJob());
         //myViewHolder.findout.setText(myJob.get(i).getFindout());
-        /*
-        final String getTitleJob = myJob.get(i).getTitleJob();
-        final String getDescJob = myJob.get(i).getDescJob();
-        final String getFindout = myJob.get(i).getFindout();
-        //final String getKeyDoes = myJob.get(i).getKeydoes();
-
-
-        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent aa = new Intent(context, EditTaskDesk.class);
-                aa.putExtra("titlejob", getTitleJob);
-                aa.putExtra("descjob", getDescJob);
-                aa.putExtra("findout", getFindout);
-                //aa.putExtra("keydoes", getKeyDoes);
-                context.startActivity(aa);
-            }
-        });
-        */
     }
 
     @Override
