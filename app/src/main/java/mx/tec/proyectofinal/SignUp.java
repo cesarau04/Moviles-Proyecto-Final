@@ -40,7 +40,6 @@ public class SignUp extends AppCompatActivity {
         enterpriseCheck = findViewById(R.id.enterpriseCheckBox);
 
         status = findViewById(R.id.textView_Status);
-
         mAuth = FirebaseAuth.getInstance();
     }
 
