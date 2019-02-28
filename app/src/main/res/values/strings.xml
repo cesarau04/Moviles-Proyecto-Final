@@ -9,9 +9,10 @@
 
     <!-- activity_sign_up.xml -->
     <string name="signUpText">SIGN UP</string>
-    <string name="emailForm">email:</string>
-    <string name="passwordForm">password: (8 characters)</string>
-    <string name="passwordConfirmation">confirm password:</string>
+    <string name="fullNameText">Full name:</string>
+    <string name="emailForm">Email:</string>
+    <string name="passwordForm">Password: (8 characters)</string>
+    <string name="passwordConfirmation">Confirm password:</string>
     <string name="emailHint">myemail@example.com</string>
     <string name="passwordHint">********</string>
     <string name="signUpConfirmationButton">Confirm</string>

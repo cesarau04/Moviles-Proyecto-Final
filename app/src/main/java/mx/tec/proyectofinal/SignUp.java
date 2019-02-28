@@ -19,13 +19,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 import java.util.regex.Pattern;
 
 public class SignUp extends AppCompatActivity {
 
-    private EditText emailEditText, passwordEditText, passwordConfEditText;
+    private EditText fullNameEditText, emailEditText, passwordEditText, passwordConfEditText;
     private TextView status;
     private CheckBox enterpriseCheck;
     private FirebaseAuth mAuth;
@@ -34,6 +37,7 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        fullNameEditText = findViewById(R.id.editText_FullNameSignUp);
         emailEditText = findViewById(R.id.editText_emailSignUp);
         passwordEditText = findViewById(R.id.editText_passwordSignUp);
         passwordConfEditText = findViewById(R.id.editText_passwordConfirmationSignUp);
@@ -44,35 +48,48 @@ public class SignUp extends AppCompatActivity {
     }
 
     public void onClickConfirm(View v){
-        createAccount(emailEditText.getText().toString(), passwordEditText.getText().toString(),
+        createAccount(fullNameEditText.getText().toString(), emailEditText.getText().toString(), passwordEditText.getText().toString(),
                         enterpriseCheck.isChecked());
     }
 
-    public void createAccount(final String email, final String password, boolean enterprise){
+    public void createAccount(final String fullName, final String email, final String password, final boolean enterprise){
         Log.d("EmailPassword", "createAccount:" + email);
         if (!validateForm()){
             return;
         }
         if (enterprise){
-            //Crear usuario enterprise
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(SignUp.this, "User created!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(SignUp.this, LogIn.class);
+                                intent.putExtra("fullName", fullName);
+                                intent.putExtra("email", email);
+                                intent.putExtra("password", password);
+                                intent.putExtra("enterprise", true);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                status.setText("Failed:" + task.getException());
+                                status.setTextColor(Color.RED);
+                                Log.w("EmailPassword", "createUserWithEmail:failure", task.getException());
+                            }
+                        }
+                    });
         }else {
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                status.setText("User created");
-                                status.setTextColor(Color.rgb(50, 205, 50));
-                                Log.d("EmailPassword", "createUserWithEmail:success");
-                                /* Move to the main app once logged in */
-                                try {
-                                    Thread.sleep(2000);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
+                                Toast.makeText(SignUp.this, "User created!", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(SignUp.this, LogIn.class);
+                                intent.putExtra("fullName", fullName);
                                 intent.putExtra("email", email);
                                 intent.putExtra("password", password);
+                                intent.putExtra("enterprise", false);
                                 startActivity(intent);
                                 finish();
                             } else {
@@ -87,10 +104,11 @@ public class SignUp extends AppCompatActivity {
     }
 
     private boolean validateForm(){
+        String fullName = fullNameEditText.getText().toString();
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
         String passwordConf = passwordConfEditText.getText().toString();
-        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(passwordConf)){
+        if (TextUtils.isEmpty(fullName) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(passwordConf)){
             Toast.makeText(SignUp.this, "Fill all the fileds!", Toast.LENGTH_SHORT).show();
             return false;
         }
