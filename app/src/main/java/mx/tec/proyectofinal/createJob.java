@@ -26,18 +26,14 @@ public class createJob extends AppCompatActivity {
     }
 
     public void addJob(View v){
-        /*
-        añadir a base de datos usando
-        jobTitle.getText().toString();
-        jobDescription.getText().toString();
-         */
 
         Intent intentPrevious=getIntent();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference userDataReference = database.getReference();
         userDataReference.child("JobsApp").child("Enterprise").child(intentPrevious.getStringExtra(
-                "email")).child("Jobs").child(jobTitle.getText().toString()).child(jobDescription.getText().toString());
+                "email")).child("Jobs").child(jobTitle.getText().toString()).child("Desctiption").setValue(
+                        jobDescription.getText().toString());
 
 
         Intent intent = new Intent();

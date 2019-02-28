@@ -29,7 +29,12 @@ public class enterpDashboard extends AppCompatActivity {
 
         helloMessage=findViewById(R.id.textView10);
 
-        String text = ("Hello " + intent.getStringExtra("fullName")+ "!");
+        String name = intent.getStringExtra("fullName");
+
+        if (name == null)
+            name= "404 Not Found";
+
+        String text = ("Hello " + name + "!");
 
         helloMessage.setText(text);
     }
