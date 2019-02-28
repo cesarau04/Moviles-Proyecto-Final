@@ -18,7 +18,10 @@ public class enterpDashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enterp_dashboard);
-
+        Intent intent = getIntent();
+        Toast.makeText(enterpDashboard.this,
+                intent.getStringExtra("fullName") + intent.getStringExtra("email"),
+                Toast.LENGTH_SHORT).show();
     }
 
     public void jobCreator(View v){

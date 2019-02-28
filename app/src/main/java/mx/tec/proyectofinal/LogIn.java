@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class LogIn extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private EditText email, password;
+    private CheckBox isEnterprise;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +35,15 @@ public class LogIn extends AppCompatActivity {
 
         email = findViewById(R.id.editText_emailLogIn);
         password = findViewById(R.id.editText_passwordLogIn);
+        isEnterprise = findViewById(R.id.checkBox_isEnterprise);
 
         mAuth = FirebaseAuth.getInstance();
 
         Intent intent = getIntent();
 
         String fullNameSignUp = intent.getStringExtra("fullName");
-        String emailSignUp = intent.getStringExtra("email").replace(".", ",");
+        String emailSignUp = intent.getStringExtra("email");
+        String emailSignUpReplaced = intent.getStringExtra("email").replace(".", ",");
         String passwordSignUp = intent.getStringExtra("password");
         Boolean isEnterprise = intent.getBooleanExtra("enterprise", false);
         // here we can check against mAuth.getCurrentUser() if different from null
@@ -48,50 +52,78 @@ public class LogIn extends AppCompatActivity {
             if (isEnterprise){
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference userDataReference = database.getReference();
-                userDataReference.child("JobsApp").child("Enterprise").child(emailSignUp).child("EnterpriseName").setValue(fullNameSignUp);
-                userDataReference.child("JobsApp").child("Enterprise").child(emailSignUp).child("Jobs").setValue("Should be a list");
+                userDataReference.child("JobsApp").child("Enterprise").child(emailSignUpReplaced).child("EnterpriseName").setValue(fullNameSignUp);
+                userDataReference.child("JobsApp").child("Enterprise").child(emailSignUpReplaced).child("Jobs").setValue("Should be a list");
+                logIn(fullNameSignUp, emailSignUp, passwordSignUp, true);
             }else {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference userDataReference = database.getReference();
-                userDataReference.child("JobsApp").child("User").child(emailSignUp).child("FullName").setValue(fullNameSignUp);
-                userDataReference.child("JobsApp").child("User").child(emailSignUp).child("JobApplications").setValue("Should be a list");
-                userDataReference.child("JobsApp").child("User").child(emailSignUp).child("JobList").setValue("Should be a list");
+                userDataReference.child("JobsApp").child("User").child(emailSignUpReplaced).child("FullName").setValue(fullNameSignUp);
+                userDataReference.child("JobsApp").child("User").child(emailSignUpReplaced).child("JobApplications").setValue("Should be a list");
+                userDataReference.child("JobsApp").child("User").child(emailSignUpReplaced).child("JobList").setValue("Should be a list");
+                logIn(fullNameSignUp, emailSignUp, passwordSignUp, false);
             }
-            logIn(intent.getStringExtra("email"), intent.getStringExtra("password"));
+
         }
 
     }
 
     public void clickLogIn(View v){
-        logIn(email.getText().toString(), password.getText().toString());
+        logIn(null, email.getText().toString(), password.getText().toString(), isEnterprise.isChecked());
     }
 
-    private void logIn(final String email, String password) {
+    private void logIn(final String fullName, final String email, String password, boolean isEnterprise) {
         if (!validateForm(email, password)){
             return;
         }
 
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(LogIn.this, "Succesfull login", Toast.LENGTH_LONG).show();
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            //here move to another intent
-                            Intent intent = new Intent(LogIn.this, userDashboard.class);
-                            //put some extras like the user? Or save that in preferences
-                            intent.putExtra("email", email);
-                            startActivity(intent);
-                        }else{
-                            Toast.makeText(LogIn.this, task.getException().toString(), Toast.LENGTH_LONG).show();
-                        }
+        if (isEnterprise){
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(LogIn.this, "Succesfull login", Toast.LENGTH_LONG).show();
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                //here move to another intent
+                                Intent intent = new Intent(LogIn.this, enterpDashboard.class);
+                                //put some extras like the user? Or save that in preferences
+                                intent.putExtra("fullName", fullName);
+                                intent.putExtra("email", email.replace(".",","));
+                                startActivity(intent);
+                            }else{
+                                Toast.makeText(LogIn.this, task.getException().toString(), Toast.LENGTH_LONG).show();
+                            }
 
-                        if (!task.isSuccessful()){
-                            Toast.makeText(LogIn.this, "Failed to logIn", Toast.LENGTH_LONG).show();
+                            if (!task.isSuccessful()){
+                                Toast.makeText(LogIn.this, "Failed to logIn", Toast.LENGTH_LONG).show();
+                            }
                         }
-                    }
-                });
+                    });
+        }else{
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(LogIn.this, "Succesfull login", Toast.LENGTH_LONG).show();
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                //here move to another intent
+                                Intent intent = new Intent(LogIn.this, userDashboard.class);
+                                //put some extras like the user? Or save that in preferences
+                                intent.putExtra("email", email.replace(".",","));
+                                startActivity(intent);
+                            }else{
+                                Toast.makeText(LogIn.this, task.getException().toString(), Toast.LENGTH_LONG).show();
+                            }
+
+                            if (!task.isSuccessful()){
+                                Toast.makeText(LogIn.this, "Failed to logIn", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+        }
+
     }
 
     private boolean validateForm(String email, String password){
