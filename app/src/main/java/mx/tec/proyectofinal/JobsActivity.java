@@ -27,7 +27,7 @@ public class JobsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_jobs);
 
         titlepage = findViewById(R.id.titlepage);
         subtitlepage = findViewById(R.id.subtitlepage);
