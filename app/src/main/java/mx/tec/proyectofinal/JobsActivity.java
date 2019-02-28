@@ -34,7 +34,7 @@ public class JobsActivity extends AppCompatActivity {
         endpage = findViewById(R.id.endpage);
 
         // working with data
-        ourJobs = findViewById(R.id.ourjobs);
+        ourJobs = findViewById(R.id.ourJobs);
         ourJobs.setLayoutManager(new LinearLayoutManager(this));
         list = new ArrayList<>();
 
