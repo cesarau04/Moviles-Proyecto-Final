@@ -42,42 +42,30 @@ public class LogIn extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        String fullNameSignUp = null;
-        String emailSignUp = null;
+
+        String fullNameSignUp = intent.getStringExtra("fullName");
+        String emailSignUp = intent.getStringExtra("email");
         String emailSignUpReplaced = null;
-        String passwordSignUp = null;
-        Boolean isEnterprise = null;
-        try {
-            fullNameSignUp = intent.getStringExtra("fullName");
-            emailSignUp = intent.getStringExtra("email");
+        String passwordSignUp = intent.getStringExtra("password");
+        Boolean isEnterprise = intent.getBooleanExtra("enterprise", false);
+        if (emailSignUp != null){
             emailSignUpReplaced = intent.getStringExtra("email").replace(".", ",");
-            passwordSignUp = intent.getStringExtra("password");
-            isEnterprise = intent.getBooleanExtra("enterprise", false);
-            if (fullNameSignUp != null && emailSignUp != null && passwordSignUp != null){
-                Toast.makeText(LogIn.this, "Loggin in ...", Toast.LENGTH_SHORT).show();
-                if (isEnterprise){
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference userDataReference = database.getReference();
-                    userDataReference.child("JobsApp").child("Enterprise").child(emailSignUpReplaced).child("EnterpriseName").setValue(fullNameSignUp);
-                    //userDataReference.child("JobsApp").child("Enterprise").child(emailSignUpReplaced).child("Jobs").setValue("Should be a list");
-                    logIn(fullNameSignUp, emailSignUp, passwordSignUp, true);
-                }else {
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference userDataReference = database.getReference();
-                    userDataReference.child("JobsApp").child("User").child(emailSignUpReplaced).child("FullName").setValue(fullNameSignUp);
-                    //userDataReference.child("JobsApp").child("User").child(emailSignUpReplaced).child("JobApplications").setValue("Should be a list");
-                    //userDataReference.child("JobsApp").child("User").child(emailSignUpReplaced).child("JobList").setValue("Should be a list");
-                    logIn(fullNameSignUp, emailSignUp, passwordSignUp, false);
-                }
-
-            }
-        } catch (Exception e){
-            e.printStackTrace();
         }
-        // here we can check against mAuth.getCurrentUser() if different from null
-
-
-    }
+        if (fullNameSignUp != null && emailSignUp != null && emailSignUpReplaced != null && passwordSignUp != null){
+            Toast.makeText(LogIn.this, "Loggin in ...", Toast.LENGTH_SHORT).show();
+            if (isEnterprise){
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference userDataReference = database.getReference();
+                userDataReference.child("JobsApp").child("Enterprise").child(emailSignUpReplaced).child("EnterpriseName").setValue(fullNameSignUp);
+                logIn(fullNameSignUp, emailSignUp, passwordSignUp, true);
+            }else {
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference userDataReference = database.getReference();
+                userDataReference.child("JobsApp").child("User").child(emailSignUpReplaced).child("FullName").setValue(fullNameSignUp);
+                logIn(fullNameSignUp, emailSignUp, passwordSignUp, false);
+            }
+        }
+        }
 
     public void clickLogIn(View v){
         logIn(null, email.getText().toString(), password.getText().toString(), isEnterprise.isChecked());
