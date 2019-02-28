@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickLogIn(View v){
-        Intent intent = new Intent(MainActivity.this, JobsActivity.class);
+        Intent intent = new Intent(MainActivity.this, LogIn.class);
         startActivity(intent);
     }
 
