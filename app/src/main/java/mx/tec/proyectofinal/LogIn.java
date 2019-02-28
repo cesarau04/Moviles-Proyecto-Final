@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,6 +33,7 @@ public class LogIn extends AppCompatActivity {
         password = findViewById(R.id.editText_passwordLogIn);
 
         mAuth = FirebaseAuth.getInstance();
+
         Intent intent = getIntent();
 
         // here we can check against mAuth.getCurrentUser() if different from null

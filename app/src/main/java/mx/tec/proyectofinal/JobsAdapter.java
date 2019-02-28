@@ -33,13 +33,13 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.MyViewHolder>{
         myViewHolder.titlejob.setText(myJob.get(i).getTitlejob());
         myViewHolder.descjob.setText(myJob.get(i).getDescjob());
         myViewHolder.findout.setText(myJob.get(i).getFindout());
-
+        /*
         final String getTitlejob = myJob.get(i).getTitlejob();
         final String getDescjob = myJob.get(i).getDescjob();
         final String getFindout = myJob.get(i).getFindout();
         //final String getKeyDoes = myJob.get(i).getKeydoes();
 
-        /*
+
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
