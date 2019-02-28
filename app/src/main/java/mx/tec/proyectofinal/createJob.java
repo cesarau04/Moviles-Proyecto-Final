@@ -14,6 +14,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class createJob extends AppCompatActivity {
 
     private EditText jobTitle, jobDescription;
@@ -51,23 +54,22 @@ public class createJob extends AppCompatActivity {
 
     public void addJob(View v){
         countJobs++;
+
+        Jobs job = new Jobs();
+        job.setTitleJob(jobTitle.getText().toString());
+        job.setDescJob(jobDescription.getText().toString());
+        job.setDate(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
         dbReference.child("JobsApp")
                 .child("Enterprise")
                 .child(intentPrevious.getStringExtra("email"))
                 .child("Jobs")
                 .child("Job-" + countJobs.toString())
-                .child("title")
-                .setValue(jobTitle.getText().toString());
+                .setValue(job);
         dbReference.child("JobsApp")
                 .child("Enterprise")
                 .child(intentPrevious.getStringExtra("email"))
-                .child("Jobs")
-                .child("Job-" + countJobs.toString())
-                .child("description").setValue(jobDescription.getText().toString());
-        dbReference.child("JobsApp")
-                .child("Enterprise")
-                .child(intentPrevious.getStringExtra("email"))
-                .child("CountJobs").setValue(countJobs);
+                .child("CountJobs")
+                .setValue(countJobs);
         Intent intent = new Intent();
         setResult(Activity.RESULT_OK, intent);
         finish();

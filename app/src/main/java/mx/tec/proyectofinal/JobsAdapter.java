@@ -1,7 +1,6 @@
 package mx.tec.proyectofinal;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -30,12 +29,12 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.MyViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int i) {
-        myViewHolder.titlejob.setText(myJob.get(i).getTitlejob());
-        myViewHolder.descjob.setText(myJob.get(i).getDescjob());
-        myViewHolder.findout.setText(myJob.get(i).getFindout());
+        myViewHolder.titlejob.setText(myJob.get(i).getTitleJob());
+        myViewHolder.descjob.setText(myJob.get(i).getDescJob());
+        //myViewHolder.findout.setText(myJob.get(i).getFindout());
         /*
-        final String getTitlejob = myJob.get(i).getTitlejob();
-        final String getDescjob = myJob.get(i).getDescjob();
+        final String getTitleJob = myJob.get(i).getTitleJob();
+        final String getDescJob = myJob.get(i).getDescJob();
         final String getFindout = myJob.get(i).getFindout();
         //final String getKeyDoes = myJob.get(i).getKeydoes();
 
@@ -44,8 +43,8 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.MyViewHolder>{
             @Override
             public void onClick(View v) {
                 Intent aa = new Intent(context, EditTaskDesk.class);
-                aa.putExtra("titlejob", getTitlejob);
-                aa.putExtra("descjob", getDescjob);
+                aa.putExtra("titlejob", getTitleJob);
+                aa.putExtra("descjob", getDescJob);
                 aa.putExtra("findout", getFindout);
                 //aa.putExtra("keydoes", getKeyDoes);
                 context.startActivity(aa);
@@ -65,8 +64,8 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.MyViewHolder>{
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            titlejob = (TextView) itemView.findViewById(R.id.titlejob);
-            descjob = (TextView) itemView.findViewById(R.id.descjob);
+            titlejob = (TextView) itemView.findViewById(R.id.titleJob);
+            descjob = (TextView) itemView.findViewById(R.id.descJob);
             findout = (TextView) itemView.findViewById(R.id.findout);
         }
     }

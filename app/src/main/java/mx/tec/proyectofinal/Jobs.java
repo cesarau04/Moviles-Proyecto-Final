@@ -2,41 +2,34 @@ package mx.tec.proyectofinal;
 
 public class Jobs {
 
-    String titlejob;
-    String findout;
-    String descjob;
-    //String keyjob;
+    private String titleJob;
+    private String descJob;
+    private String date;
 
     public Jobs() {
     }
 
-    public Jobs(String titlejob, String findout, String descjob) {
-        this.titlejob = titlejob;
-        this.findout = findout;
-        this.descjob = descjob;
+    public String getTitleJob() {
+        return titleJob;
     }
 
-    public String getTitlejob() {
-        return titlejob;
+    public String getDescJob() {
+        return descJob;
     }
 
-    public void setTitlejob(String titlejob) {
-        this.titlejob = titlejob;
+    public String getDate() {
+        return date;
     }
 
-    public String getFindout() {
-        return findout;
+    public void setTitleJob(String titleJob) {
+        this.titleJob = titleJob;
     }
 
-    public void setFindout(String findout) {
-        this.findout = findout;
+    public void setDescJob(String descJob) {
+        this.descJob = descJob;
     }
 
-    public String getDescjob() {
-        return descjob;
-    }
-
-    public void setDescjob(String descjob) {
-        this.descjob = descjob;
+    public void setDate(String date) {
+        this.date = date;
     }
 }

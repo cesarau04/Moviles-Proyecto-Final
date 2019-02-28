@@ -39,15 +39,24 @@ public class JobsActivity extends AppCompatActivity {
         list = new ArrayList<>();
 
         // get data from firebase
-        reference = FirebaseDatabase.getInstance().getReference().child("JobsApp");
+        reference = FirebaseDatabase.getInstance().getReference().child("JobsApp").child("Enterprise");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // set code to retrive data and replace layout
+                Integer noJobs;
+                Jobs jobToAdd;
                 for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren())
                 {
-                    Jobs p = dataSnapshot1.getValue(Jobs.class);
-                    list.add(p);
+                    // Each enterprise is here
+                    noJobs = dataSnapshot1.child("CountJobs").getValue(Integer.class);
+                    for (int i = 1; i <= noJobs; i++){
+                        jobToAdd = new Jobs();
+                        jobToAdd.setTitleJob(dataSnapshot1.child("Jobs").child("Job-"+ Integer.toString(i)).child("titleJob").getValue().toString());
+                        jobToAdd.setDescJob(dataSnapshot1.child("Jobs").child("Job-"+Integer.toString(i)).child("descJob").getValue().toString());
+                        jobToAdd.setDate(dataSnapshot1.child("Jobs").child("Job-"+Integer.toString(i)).child("date").getValue().toString());
+                        list.add(jobToAdd);
+                    }
                 }
                 jobsAdapter = new JobsAdapter(JobsActivity.this, list);
                 ourJobs.setAdapter(jobsAdapter);
