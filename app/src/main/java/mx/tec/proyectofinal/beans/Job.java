@@ -1,12 +1,12 @@
-package mx.tec.proyectofinal;
+package mx.tec.proyectofinal.beans;
 
-public class Jobs {
+public class Job {
 
     private String titleJob;
     private String descJob;
     private String date;
 
-    public Jobs() {
+    public Job() {
     }
 
     public String getTitleJob() {

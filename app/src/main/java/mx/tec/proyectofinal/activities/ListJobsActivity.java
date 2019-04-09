@@ -1,4 +1,4 @@
-package mx.tec.proyectofinal;
+package mx.tec.proyectofinal.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,14 +15,18 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class JobsActivity extends AppCompatActivity {
+import mx.tec.proyectofinal.beans.Job;
+import mx.tec.proyectofinal.adapters.JobAdapter;
+import mx.tec.proyectofinal.R;
+
+public class ListJobsActivity extends AppCompatActivity {
 
     TextView titlepage, subtitlepage, endpage;
 
     DatabaseReference reference;
     RecyclerView ourJobs;
-    ArrayList<Jobs> list;
-    JobsAdapter jobsAdapter;
+    ArrayList<Job> list;
+    JobAdapter jobsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,20 +49,20 @@ public class JobsActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // set code to retrive data and replace layout
                 Integer noJobs;
-                Jobs jobToAdd;
+                Job jobToAdd;
                 for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren())
                 {
                     // Each enterprise is here
                     noJobs = dataSnapshot1.child("CountJobs").getValue(Integer.class);
                     for (int i = 1; i <= noJobs; i++){
-                        jobToAdd = new Jobs();
+                        jobToAdd = new Job();
                         jobToAdd.setTitleJob(dataSnapshot1.child("Jobs").child("Job-"+ Integer.toString(i)).child("titleJob").getValue().toString());
                         jobToAdd.setDescJob(dataSnapshot1.child("Jobs").child("Job-"+Integer.toString(i)).child("descJob").getValue().toString());
                         jobToAdd.setDate(dataSnapshot1.child("Jobs").child("Job-"+Integer.toString(i)).child("date").getValue().toString());
                         list.add(jobToAdd);
                     }
                 }
-                jobsAdapter = new JobsAdapter(JobsActivity.this, list);
+                jobsAdapter = new JobAdapter(ListJobsActivity.this, list);
                 ourJobs.setAdapter(jobsAdapter);
                 jobsAdapter.notifyDataSetChanged();
             }
@@ -71,4 +75,5 @@ public class JobsActivity extends AppCompatActivity {
         });
 
     }
+
 }

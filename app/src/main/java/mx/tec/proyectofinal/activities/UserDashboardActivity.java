@@ -1,10 +1,9 @@
-package mx.tec.proyectofinal;
+package mx.tec.proyectofinal.activities;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,7 +14,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class userDashboard extends AppCompatActivity {
+import mx.tec.proyectofinal.R;
+
+public class UserDashboardActivity extends AppCompatActivity {
 
     private String email;
     private TextView helloTextView;
@@ -58,7 +59,7 @@ public class userDashboard extends AppCompatActivity {
         this.toJobsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(userDashboard.this, JobsActivity.class);
+                Intent intent = new Intent(UserDashboardActivity.this, ListJobsActivity.class);
                 startActivity(intent);
             }
         });

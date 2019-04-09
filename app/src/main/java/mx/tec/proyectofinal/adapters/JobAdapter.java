@@ -1,4 +1,4 @@
-package mx.tec.proyectofinal;
+package mx.tec.proyectofinal.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,12 +10,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.MyViewHolder>{
+import mx.tec.proyectofinal.R;
+import mx.tec.proyectofinal.beans.Job;
+
+public class JobAdapter extends RecyclerView.Adapter<JobAdapter.MyViewHolder>{
 
     Context context;
-    ArrayList<Jobs> myJob;
+    ArrayList<Job> myJob;
 
-    public JobsAdapter(Context c, ArrayList<Jobs> p) {
+    public JobAdapter(Context c, ArrayList<Job> p) {
         context = c;
         myJob = p;
     }

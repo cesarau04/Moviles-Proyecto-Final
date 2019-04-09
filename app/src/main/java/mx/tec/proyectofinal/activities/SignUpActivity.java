@@ -1,4 +1,4 @@
-package mx.tec.proyectofinal;
+package mx.tec.proyectofinal.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,17 +16,15 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 
 import java.util.regex.Pattern;
 
-public class SignUp extends AppCompatActivity {
+import mx.tec.proyectofinal.R;
+
+public class SignUpActivity extends AppCompatActivity {
 
     private EditText fullNameEditText, emailEditText, passwordEditText, passwordConfEditText;
     private TextView status;
@@ -63,8 +61,8 @@ public class SignUp extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(SignUp.this, "User created!", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(SignUp.this, LogIn.class);
+                                Toast.makeText(SignUpActivity.this, "User created!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(SignUpActivity.this, LogInActivity.class);
                                 intent.putExtra("fullName", fullName);
                                 intent.putExtra("email", email);
                                 intent.putExtra("password", password);
@@ -84,8 +82,8 @@ public class SignUp extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(SignUp.this, "User created!", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(SignUp.this, LogIn.class);
+                                Toast.makeText(SignUpActivity.this, "User created!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(SignUpActivity.this, LogInActivity.class);
                                 intent.putExtra("fullName", fullName);
                                 intent.putExtra("email", email);
                                 intent.putExtra("password", password);
@@ -109,15 +107,15 @@ public class SignUp extends AppCompatActivity {
         String password = passwordEditText.getText().toString();
         String passwordConf = passwordConfEditText.getText().toString();
         if (TextUtils.isEmpty(fullName) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(passwordConf)){
-            Toast.makeText(SignUp.this, "Fill all the fileds!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUpActivity.this, "Fill all the fileds!", Toast.LENGTH_SHORT).show();
             return false;
         }
         if (!isValidEmail(email)){
-            Toast.makeText(SignUp.this, "No valid email format", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUpActivity.this, "No valid email format", Toast.LENGTH_SHORT).show();
             return false;
         }
         if (!TextUtils.equals(password, passwordConf)) {
-            Toast.makeText(SignUp.this, "Password not match", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUpActivity.this, "Password not match", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

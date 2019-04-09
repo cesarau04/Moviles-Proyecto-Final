@@ -1,4 +1,4 @@
-package mx.tec.proyectofinal;
+package mx.tec.proyectofinal.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,7 +17,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class createJob extends AppCompatActivity {
+import mx.tec.proyectofinal.beans.Job;
+import mx.tec.proyectofinal.R;
+
+public class CreateJobActivity extends AppCompatActivity {
 
     private EditText jobTitle, jobDescription;
     private Integer countJobs;
@@ -55,14 +58,14 @@ public class createJob extends AppCompatActivity {
     public void addJob(View v){
         countJobs++;
 
-        Jobs job = new Jobs();
+        Job job = new Job();
         job.setTitleJob(jobTitle.getText().toString());
         job.setDescJob(jobDescription.getText().toString());
         job.setDate(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
         dbReference.child("JobsApp")
                 .child("Enterprise")
                 .child(intentPrevious.getStringExtra("email"))
-                .child("Jobs")
+                .child("Job")
                 .child("Job-" + countJobs.toString())
                 .setValue(job);
         dbReference.child("JobsApp")

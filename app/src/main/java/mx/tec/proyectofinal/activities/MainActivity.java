@@ -1,9 +1,11 @@
-package mx.tec.proyectofinal;
+package mx.tec.proyectofinal.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import mx.tec.proyectofinal.R;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -13,12 +15,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickLogIn(View v){
-        Intent intent = new Intent(MainActivity.this, LogIn.class);
+        Intent intent = new Intent(MainActivity.this, LogInActivity.class);
         startActivity(intent);
     }
 
     public void clickSignUp(View v){
-        Intent intent = new Intent(MainActivity.this, SignUp.class);
+        Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
         startActivity(intent);
     }
 }

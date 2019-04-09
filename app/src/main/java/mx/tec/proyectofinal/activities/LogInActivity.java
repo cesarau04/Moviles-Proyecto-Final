@@ -1,7 +1,6 @@
-package mx.tec.proyectofinal;
+package mx.tec.proyectofinal.activities;
 
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,10 +19,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 
-public class LogIn extends AppCompatActivity {
+import mx.tec.proyectofinal.R;
+
+public class LogInActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private EditText email, password;
@@ -52,7 +52,7 @@ public class LogIn extends AppCompatActivity {
             emailSignUpReplaced = intent.getStringExtra("email").replace(".", ",");
         }
         if (fullNameSignUp != null && emailSignUp != null && emailSignUpReplaced != null && passwordSignUp != null){
-            Toast.makeText(LogIn.this, "Loggin in ...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LogInActivity.this, "Loggin in ...", Toast.LENGTH_SHORT).show();
             if (isEnterprise){
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference userDataReference = database.getReference();
@@ -82,20 +82,20 @@ public class LogIn extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                Toast.makeText(LogIn.this, "Succesfull login", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LogInActivity.this, "Succesfull login", Toast.LENGTH_LONG).show();
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 //here move to another intent
-                                Intent intent = new Intent(LogIn.this, enterpDashboard.class);
+                                Intent intent = new Intent(LogInActivity.this, EnterpriseDashboardActivity.class);
                                 //put some extras like the user? Or save that in preferences
                                 intent.putExtra("fullName", fullName);
                                 intent.putExtra("email", email.replace(".",","));
                                 startActivity(intent);
                             }else{
-                                Toast.makeText(LogIn.this, task.getException().toString(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(LogInActivity.this, task.getException().toString(), Toast.LENGTH_LONG).show();
                             }
 
                             if (!task.isSuccessful()){
-                                Toast.makeText(LogIn.this, "Failed to logIn", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LogInActivity.this, "Failed to logIn", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -105,19 +105,19 @@ public class LogIn extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                Toast.makeText(LogIn.this, "Succesfull login", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LogInActivity.this, "Succesfull login", Toast.LENGTH_LONG).show();
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 //here move to another intent
-                                Intent intent = new Intent(LogIn.this, userDashboard.class);
+                                Intent intent = new Intent(LogInActivity.this, UserDashboardActivity.class);
                                 //put some extras like the user? Or save that in preferences
                                 intent.putExtra("email", email.replace(".",","));
                                 startActivity(intent);
                             }else{
-                                Toast.makeText(LogIn.this, task.getException().toString(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(LogInActivity.this, task.getException().toString(), Toast.LENGTH_LONG).show();
                             }
 
                             if (!task.isSuccessful()){
-                                Toast.makeText(LogIn.this, "Failed to logIn", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LogInActivity.this, "Failed to logIn", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -127,11 +127,11 @@ public class LogIn extends AppCompatActivity {
 
     private boolean validateForm(String email, String password){
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
-            Toast.makeText(LogIn.this, "Fill all the fields!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LogInActivity.this, "Fill all the fields!", Toast.LENGTH_SHORT).show();
             return false;
         }
         if (!isValidEmail(email)){
-            Toast.makeText(LogIn.this, "No valid email format", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LogInActivity.this, "No valid email format", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

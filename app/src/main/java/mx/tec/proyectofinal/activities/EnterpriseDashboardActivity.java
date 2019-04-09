@@ -1,4 +1,4 @@
-package mx.tec.proyectofinal;
+package mx.tec.proyectofinal.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,7 +15,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class enterpDashboard extends AppCompatActivity {
+import mx.tec.proyectofinal.R;
+
+public class EnterpriseDashboardActivity extends AppCompatActivity {
 
     private static final int ENTER_DASHBOARD_CODE =0;
 
@@ -57,7 +59,7 @@ public class enterpDashboard extends AppCompatActivity {
     }
 
     public void jobCreator(View v){
-        Intent intent = new Intent(enterpDashboard.this, createJob.class);
+        Intent intent = new Intent(EnterpriseDashboardActivity.this, CreateJobActivity.class);
         intent.putExtra("email", emailAddress);
         startActivityForResult(intent, ENTER_DASHBOARD_CODE);
     }
